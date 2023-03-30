@@ -40,15 +40,15 @@ public class DNS_Server
         System.out.println("DNS Server is running at port " + port_number + "..."); 
         
         //setting up the socket to communicate back and forth to the client
-        DatagramSocket server_socket = new DatagramSocket(port_number);
+        DatagramSocket server_socket = new DatagramSocket(port_number); //create datagram socket at port 
         byte[] receive_data = new byte[1024];
         byte[] send_data = new byte[1024];
            
         while(true)     //waiting for a client request...
         {
             //receiving the udp packet of data from client and turning them to string to print them
-            DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length);
-            server_socket.receive(receive_packet);
+            DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length); //create space for received datagram
+            server_socket.receive(receive_packet); //receive datagram
             String given_hostname = new String(receive_packet.getData(), 0, receive_packet.getLength());
             
             String found_address = "-1";
@@ -83,14 +83,14 @@ public class DNS_Server
             }
             
             //getting the address and port of client
-            InetAddress client_address = receive_packet.getAddress();
-            int client_port = receive_packet.getPort();
+            InetAddress client_address = receive_packet.getAddress();  //get ip addr
+            int client_port = receive_packet.getPort(); //get port number of the sender
             
             //sending the found address back to client
             send_data = found_address.getBytes();
-            DatagramPacket send_packet = new DatagramPacket(send_data, send_data.length, client_address, client_port);
-            server_socket.send(send_packet);
-        }
+            DatagramPacket send_packet = new DatagramPacket(send_data, send_data.length, client_address, client_port); //create datagram to send to client
+            server_socket.send(send_packet); //write out datagram to socket
+        }  //end while loop, loop back and wait for another datagram
     }
 } 
 

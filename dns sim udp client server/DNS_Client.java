@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-public class DNS_Client 
+public class DNS_Client
 {
     public static void main(String args[]) throws Exception
     {
@@ -28,26 +28,26 @@ public class DNS_Client
         
         System.out.println("Reaching DNS Server at " +host+ " with port " + port + "..."); 
         
-        BufferedReader keyboard_input = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader keyboard_input = new BufferedReader(new InputStreamReader(System.in)); //create i/p stream
         System.out.print("Type a website: ");  
         String given_hostname = keyboard_input.readLine();
         
         //setting up the socket and its timeout that we're going to use to access the server
-        DatagramSocket client_socket = new DatagramSocket();
+        DatagramSocket client_socket = new DatagramSocket();   //create client socket 
         client_socket.setSoTimeout(3000);
                 
-        InetAddress IP_address = InetAddress.getByName(host);
+        InetAddress IP_address = InetAddress.getByName(host);  //translate hostname to IP address using DNS
         byte[] send_data = new byte[1024];
         byte[] receive_data = new byte[1024];
          
         send_data = given_hostname.getBytes();
         
         //sending the given-by-user website to the server 
-        DatagramPacket send_packet = new DatagramPacket(send_data, send_data.length, IP_address, port);
-        client_socket.send(send_packet);
+        DatagramPacket send_packet = new DatagramPacket(send_data, send_data.length, IP_address, port); //create datagram packet(data to send, length, IPAddr, port)
+        client_socket.send(send_packet);//send datagram to server
         
         //setting up the packet we will receive with the IP address of the given-by-user website 
-        DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length);
+        DatagramPacket receive_packet = new DatagramPacket(receive_data, receive_data.length); //read datagram from server
 
         try
         {
