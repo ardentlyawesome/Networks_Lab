@@ -1,2 +1,0 @@
-localhost 127.0.0.1
-www.goodreads.com 52.94.237.126
